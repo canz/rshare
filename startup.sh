@@ -22,14 +22,13 @@ then
 	su - retrouser -c "retroshare-nogui --webinterface 9090 --docroot /usr/share/retroshare/webui/ --http-allow-all"
 elif [[ $MODE == "gui" ]]
 then
-	# xpra start :100
- 	# screen -dmS RetroScreen
-	# screen -S "RetroScreen" -p 0 -X stuff "DISPLAY=:100 RetroShare& $(printf \\r)"
+	xpra start :100
+ 	screen -dmS RetroScreen
+	screen -S "RetroScreen" -p 0 -X stuff "DISPLAY=:100 RetroShare& $(printf \\r)"
 
-	su - retrouser -c "xpra start :100 --bind-tcp=0.0.0.0:14500 --no-mdns --no-notifications --no-pulseaudio"
-
-	# start RetroShare GUI in a screen session with xpra display
-	su - retrouser -c "DISPLAY=:100 retroshare"
+	#  su - retrouser -c "xpra start :100 --bind-tcp=0.0.0.0:14500 --no-mdns --no-notifications --no-pulseaudio"
+	#  # start RetroShare GUI in a screen session with xpra display
+	#  su - retrouser -c "DISPLAY=:100 retroshare"
 else
 	echo "Wrong mode selected"
 fi
