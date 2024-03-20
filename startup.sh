@@ -12,6 +12,8 @@ if [ $? -ne 0 ]; then
     chown -R retrouser:retrouser /home/retrouser
     chmod -R ug+rwX /home/retrouser
     chmod -R o-rwx /home/retrouser
+    mkdir /run/user/1000/xpra
+    chown -R retrouser:retrouser /run/user/1000/xpra
 fi
 
 if [[ $MODE == "nogui" ]]
