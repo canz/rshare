@@ -26,11 +26,12 @@ then
 elif [[ $MODE == "gui" ]]
 then
 	xpra start :100
- 	screen -dmS RetroScreen
-	screen -S "RetroScreen" -p 0 -X stuff "DISPLAY=:100 RetroShare& $(printf \\r)"
- 
+
         ls /tmp/*
         tail /tmp/:100.log
+	
+ 	screen -dmS RetroScreen
+	screen -S "RetroScreen" -p 0 -X stuff "DISPLAY=:100 RetroShare& $(printf \\r)"
 	
         # QT_QPA_PLATFORM=xcb
 	# su - retrouser -c "xpra start :100 --bind-tcp=0.0.0.0:14500 --no-mdns --no-notifications --no-pulseaudio"
