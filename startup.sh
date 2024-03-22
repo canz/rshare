@@ -34,9 +34,10 @@ then
 	#screen -S "RetroScreen" -p 0 -X stuff "DISPLAY=:100 RetroShare& $(printf \\r)"
 	
         # QT_QPA_PLATFORM=xcb
-	# su - retrouser -c "xpra start :100 --bind-tcp=0.0.0.0:14500 --no-mdns --no-notifications --no-pulseaudio"
+	su - retrouser -c "xpra start :100 --bind-tcp=0.0.0.0:14500 --no-mdns --no-notifications --no-pulseaudio"
 	# # start RetroShare GUI in a screen session with xpra display
-	# su - retrouser -c "DISPLAY=:100 retroshare"
+	sleep 5
+        su - retrouser -c "DISPLAY=:100 retroshare"
 
 	while true; do
     		sleep 60  # Adjust the sleep time as needed
