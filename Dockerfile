@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:bookworm-slim
 
 ENV MODE nogui-web
 ENV DEBIAN_VERSION 12
@@ -41,15 +41,9 @@ RUN echo 'then' >> /home/retrouser/startup.sh
 RUN echo '        retroshare-nogui --webinterface 9090 --docroot /usr/share/retroshare/webui/ --http-allow-all' >> /home/retrouser/startup.sh
 RUN echo 'elif [[ $MODE == "gui" ]]' >> /home/retrouser/startup.sh
 RUN echo 'then' >> /home/retrouser/startup.sh
-# RUN echo '    while true; do' >> /home/retrouser/startup.sh
-# RUN echo '                    sleep 60' >> /home/retrouser/startup.sh
-# RUN echo '    done' >> /home/retrouser/startup.sh
-# RUN echo '        xpra start :100 --bind-tcp=0.0.0.0:14500 --no-mdns --no-notifications --no-pulseaudio' >> /home/retrouser/startup.sh
-# RUN echo '        sleep 2' >> /home/retrouser/startup.sh
-# RUN echo '        DISPLAY=:100 retroshare' >> /home/retrouser/startup.sh
-RUN echo '    while true; do' >> /home/retrouser/startup.sh
-RUN echo '                    sleep 60' >> /home/retrouser/startup.sh
-RUN echo '    done' >> /home/retrouser/startup.sh
+RUN echo '        su - retrouser -c "xpra start :100 --bind-tcp=0.0.0.0:14500 --no-mdns --no-notifications --no-pulseaudio"' >> /home/retrouser/startup.sh
+RUN echo '        sleep 2' >> /home/retrouser/startup.sh
+RUN echo '        su - retrouser -c "DISPLAY=:100 retroshare"' >> /home/retrouser/startup.sh
 RUN echo 'else' >> /home/retrouser/startup.sh
 RUN echo '        echo "Wrong mode selected"' >> /home/retrouser/startup.sh
 RUN echo 'fi' >> /home/retrouser/startup.sh
@@ -57,7 +51,7 @@ RUN echo 'fi' >> /home/retrouser/startup.sh
 RUN chown retrouser:retrouser /home/retrouser/startup.sh && \
     chmod +x /home/retrouser/startup.sh
 
-USER retrouser
+# USER retrouser
 WORKDIR /home/retrouser
 
 ENTRYPOINT ["./startup.sh"]
